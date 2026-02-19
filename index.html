@@ -33,13 +33,13 @@
             <!-- Header -->
             <header class="w-full flex flex-col md:flex-row items-center justify-between py-6 px-4 md:px-20 max-w-[1440px] mx-auto z-10 relative">
                 <div class="flex items-center gap-6 mb-4 md:mb-0">
-                    <img src="assets/5c6aada094155c2fc1e8b999f5bc399d42b8b5f1.png" alt="Policia Nacional" class="h-[60px] object-contain">
+                    <img src="assets/Header/logo-policia.png" alt="Policia Nacional" class="h-[60px] object-contain">
                     <span class="text-xs md:text-sm font-poppins" style="color: #ffffff;">EN CONVENIO CON</span>
-                    <img src="assets/d3ae3384bfc8712f1b8b77aa24cf2103a118df84.png" alt="Americana" class="h-[40px] object-contain">
+                    <img src="assets/Header/logo-americana.png" alt="Americana" class="h-[40px] object-contain">
                 </div>
-                <div class="text-center md:text-right font-poppins">
-                    <p class="font-extrabold text-sm md:text-xl uppercase tracking-wide leading-tight" style="color: #ffffff;">SERVIR AL PAÍS ES UN HONOR.</p>
-                    <p class="font-medium text-xs md:text-sm uppercase tracking-wide" style="color: #d1d5db;">PREPARARTE <span style="color: #CEFE3B;">PROFESIONALMENTE</span> ES TU COMPROMISO.</p>
+                <div class="text-center md:text-right font-poppins w-full md:w-auto">
+                    <p class="font-extrabold uppercase tracking-wide leading-tight" style="color: #ffffff; white-space: nowrap; font-size: 25px;">SERVIR AL PAÍS ES UN HONOR.</p>
+                    <p class="font-medium text-xs md:text-sm uppercase tracking-wide" style="color: #d1d5db; white-space: nowrap;">PREPARARTE <span style="color: #CEFE3B;">PROFESIONALMENTE</span> ES TU COMPROMISO.</p>
                 </div>
             </header>
 
@@ -66,16 +66,37 @@
                     </div>
 
                     <div class="flex-1 w-full relative group" style="max-width: 600px;">
-                        <div class="relative rounded-[32px] overflow-hidden border border-[#CEFE3B]/30 shadow-2xl p-2 backdrop-blur-sm" style="background: linear-gradient(170deg, rgba(58, 129, 191, 0.08) 1.8%, rgba(65, 48, 90, 0.08) 98.7%);">
+                        <div class="relative rounded-[32px] overflow-hidden border shadow-2xl p-2 backdrop-blur-sm" style="background: linear-gradient(170deg, rgba(58, 129, 191, 0.08) 1.8%, rgba(65, 48, 90, 0.08) 98.7%); border-color: rgba(206, 254, 59, 0.6);">
                             <div class="rounded-[24px] overflow-hidden relative aspect-[4/3]">
-                                <img src="assets/d64bd753fd05d5b2bbf880f9f45161ee41d9f2c2.png" alt="Policia Hero" class="w-full h-full object-cover">
+                                <!-- Carrusel -->
+                                <div class="carousel-container">
+                                    <div class="carousel-slide active">
+                                        <img src="assets/Hero/policia-hero.png" alt="Policia Hero" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/Hero/hero-2.jpeg" alt="Policia Hero 2" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/Hero/hero-3.jpeg" alt="Policia Hero 3" class="w-full h-full object-cover">
+                                    </div>
+                                    
+                                    <!-- Flechas de navegación -->
+                                    <button class="carousel-arrow carousel-arrow-left" onclick="changeSlide(-1)">&#10094;</button>
+                                    <button class="carousel-arrow carousel-arrow-right" onclick="changeSlide(1)">&#10095;</button>
+                                    
+                                    <!-- Indicadores -->
+                                    <div class="carousel-indicators">
+                                        <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+                                        <span class="carousel-dot" onclick="goToSlide(1)"></span>
+                                        <span class="carousel-dot" onclick="goToSlide(2)"></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="mt-4 text-center md:text-left">
-                            <p class="font-poppins text-xs md:text-sm" style="color: #CEFE3B; font-style: italic;">
-                                Convenio exclusivo entre la <span class="font-bold">Corporación Universitaria Americana – sede Medellín</span> y la Policía Nacional.
-                            </p>
+                            <div class="text-center py-4 px-2">
+                                <p class="font-poppins text-sm md:text-base" style="font-style: italic;">
+                                    <span style="color: #ffffff;">Convenio exclusivo entre la </span><span style="color: #CEFE3B; font-weight: 700;">Corporación Universitaria Americana – sede Medellín y la Policía Nacional.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -88,18 +109,18 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <!-- Card 1 -->
-                        <div class="flex flex-col items-center md:items-start gap-4 group">
+                        <div class="flex flex-col items-center md:items-start gap-4 group cursor-pointer" onclick="openFeatureModal('homologacion')">
                             <div class="feature-card w-full h-[300px] flex items-center justify-center relative overflow-hidden">
                                 <!-- Background Image Layer -->
                                 <div class="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110" 
-                                     style="background-image: url('assets/Convenio/Homologacion.png'); background-size: cover; background-position: center;">
+                                     style="background-image: url('assets/Features/fondo-homologacion.png'); background-size: cover; background-position: center;">
                                 </div>
                                 <!-- Blue Tint Overlay -->
                                 <div class="absolute inset-0 z-0" style="background-color: rgba(14, 34, 62, 0.7); mix-blend-mode: multiply;"></div>
                                 
                                 <div class="w-48 h-48 flex items-center justify-center relative z-10">
                                     <div class="absolute inset-0 bg-[#CEFE3B]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity feature-glow"></div>
-                                    <img src="assets/840ae02fc89b66c8d4399a0d8f44f35ff8566e4b.png" alt="Homologación" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
+                                    <img src="assets/Features/icono-homologacion.png" alt="Homologación" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
                                 </div>
                             </div>
                             <div class="text-center md:text-left space-y-1 w-full">
@@ -109,18 +130,18 @@
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="flex flex-col items-center md:items-start gap-4 group">
+                        <div class="flex flex-col items-center md:items-start gap-4 group cursor-pointer" onclick="openFeatureModal('reduccion')">
                             <div class="feature-card w-full h-[300px] flex items-center justify-center relative overflow-hidden">
                                 <!-- Background Image Layer -->
                                 <div class="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110" 
-                                     style="background-image: url('assets/Convenio/Reduccion.png'); background-size: cover; background-position: center;">
+                                     style="background-image: url('assets/Features/fondo-reduccion.png'); background-size: cover; background-position: center;">
                                 </div>
                                 <!-- Blue Tint Overlay -->
                                 <div class="absolute inset-0 z-0" style="background-color: rgba(14, 34, 62, 0.7); mix-blend-mode: multiply;"></div>
 
                                 <div class="w-48 h-48 flex items-center justify-center relative z-10">
                                     <div class="absolute inset-0 bg-[#CEFE3B]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity feature-glow"></div>
-                                    <img src="assets/10f3c06932baf4b0fdd620384632221107904f0c.png" alt="Tiempo y Costos" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
+                                    <img src="assets/Features/icono-tiempo-costos.png" alt="Tiempo y Costos" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
                                 </div>
                             </div>
                             <div class="text-center md:text-left space-y-1 w-full">
@@ -130,39 +151,39 @@
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="flex flex-col items-center md:items-start gap-4 group">
+                        <div class="flex flex-col items-center md:items-start gap-4 group cursor-pointer" onclick="openFeatureModal('carrera')">
                             <div class="feature-card w-full h-[300px] flex items-center justify-center relative overflow-hidden">
                                 <!-- Background Image Layer -->
                                 <div class="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110" 
-                                     style="background-image: url('assets/Convenio/Carrera Profesional.png'); background-size: cover; background-position: center;">
+                                     style="background-image: url('assets/Features/fondo-carrera.png'); background-size: cover; background-position: center;">
                                 </div>
                                 <!-- Blue Tint Overlay -->
                                 <div class="absolute inset-0 z-0" style="background-color: rgba(14, 34, 62, 0.7); mix-blend-mode: multiply;"></div>
 
                                 <div class="w-48 h-48 flex items-center justify-center relative z-10">
                                     <div class="absolute inset-0 bg-[#CEFE3B]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity feature-glow"></div>
-                                    <img src="assets/18026ad49e835a53cf0276354e46346ba7a8ac49.png" alt="Carrera" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
+                                    <img src="assets/Features/icono-carrera.png" alt="Carrera" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
                                 </div>
                             </div>
                             <div class="text-center md:text-left space-y-1 w-full">
-                                <p class="font-poppins text-sm md:text-base leading-tight font-light" style="color: #d1d5db;">Carrera profesional</p>
-                                <p class="font-poppins text-lg md:text-xl font-extrabold uppercase leading-tight" style="color: #CEFE3B;">EN 4 CUATRIMESTRES</p>
+                                <p class="font-poppins text-sm md:text-base leading-tight font-light" style="color: #d1d5db;">Especialización o Posgrado</p>
+                                <p class="font-poppins text-lg md:text-xl font-extrabold uppercase leading-tight" style="color: #CEFE3B;">EN 2 CUATRIMESTRES</p>
                             </div>
                         </div>
 
                         <!-- Card 4 -->
-                        <div class="flex flex-col items-center md:items-start gap-4 group">
+                        <div class="flex flex-col items-center md:items-start gap-4 group cursor-pointer" onclick="openFeatureModal('valor')">
                             <div class="feature-card w-full h-[300px] flex items-center justify-center relative overflow-hidden">
                                 <!-- Background Image Layer -->
                                 <div class="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110" 
-                                     style="background-image: url('assets/Convenio/Valor Cuatrimestral.png'); background-size: cover; background-position: center;">
+                                     style="background-image: url('assets/Features/fondo-valor.png'); background-size: cover; background-position: center;">
                                 </div>
                                 <!-- Blue Tint Overlay -->
                                 <div class="absolute inset-0 z-0" style="background-color: rgba(14, 34, 62, 0.7); mix-blend-mode: multiply;"></div>
 
                                 <div class="w-48 h-48 flex items-center justify-center relative z-10">
                                     <div class="absolute inset-0 bg-[#CEFE3B]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity feature-glow"></div>
-                                    <img src="assets/2b5509d21294937eb2abb2bd3e940a86863a64e4.png" alt="Ahorro" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
+                                    <img src="assets/Features/icono-ahorro.png" alt="Ahorro" class="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-110">
                                 </div>
                             </div>
                             <div class="text-center md:text-left space-y-1 w-full">
@@ -188,7 +209,7 @@
                     <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
                         <div class="flex-1 relative group" style="max-width: 600px;">
                             <div class="relative rounded-[32px] overflow-hidden shadow-2xl p-2 backdrop-blur-sm transform rotate-1 transition-transform group-hover:rotate-0" style="background: linear-gradient(170deg, rgba(58, 129, 191, 0.08) 1.8%, rgba(65, 48, 90, 0.08) 98.7%);">
-                                <img src="assets/f6d5a8ead947fea68f69876bad9065f39c22948c.png" alt="Ruta Formativa" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
+                                <img src="assets/Ruta/ruta-formativa.png" alt="Ruta Formativa" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
                             </div>
                             <div class="absolute top-4 -right-4 w-full h-full bg-[#CEFE3B]/10 rounded-[32px] -z-10 blur-xl"></div>
                         </div>
@@ -211,7 +232,7 @@
                     <div class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24">
                         <div class="flex-1 relative group" style="max-width: 600px;">
                             <div class="relative rounded-[32px] overflow-hidden shadow-2xl p-2 backdrop-blur-sm transform -rotate-1 transition-transform group-hover:rotate-0" style="background: linear-gradient(170deg, rgba(58, 129, 191, 0.08) 1.8%, rgba(65, 48, 90, 0.08) 98.7%);">
-                                <img src="assets/61eaf2dd393151314bf1436202ec07f290862e0f.png" alt="Estudia desde donde estés" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
+                                <img src="assets/Ruta/estudia-online.png" alt="Estudia desde donde estés" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
                             </div>
                             <div class="absolute top-4 -left-4 w-full h-full bg-[#34C759]/10 rounded-[32px] -z-10 blur-xl"></div>
                         </div>
@@ -232,7 +253,7 @@
                     <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
                         <div class="flex-1 relative group" style="max-width: 600px;">
                             <div class="relative rounded-[32px] overflow-hidden shadow-2xl p-2 backdrop-blur-sm transform rotate-1 transition-transform group-hover:rotate-0" style="background: linear-gradient(170deg, rgba(58, 129, 191, 0.08) 1.8%, rgba(65, 48, 90, 0.08) 98.7%);">
-                                <img src="assets/a1e7843bc32c185b285630f54056be8ec02eae2e.png" alt="Acompañamiento Total" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
+                                <img src="assets/Ruta/acompanamiento.png" alt="Acompañamiento Total" class="w-full h-auto rounded-[24px] object-cover aspect-[4/3]">
                             </div>
                             <div class="absolute top-4 -right-4 w-full h-full bg-[#CEFE3B]/10 rounded-[32px] -z-10 blur-xl"></div>
                         </div>
@@ -261,10 +282,10 @@
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
                         <a href="https://www.facebook.com/EmprendeTuCarrera/" class="hover:opacity-80 transition-opacity" aria-label="Instagram">
-                            <img src="assets/9df9045bbd043a4d189cefbefe8e0e29eabca93e.png" alt="Instagram" style="width: 32px; height: 32px; object-fit: contain;">
+                            <img src="assets/Redes/instagram.png" alt="Instagram" style="width: 32px; height: 32px; object-fit: contain;">
                         </a>
                         <a href="https://www.facebook.com/EmprendeTuCarrera/" class="hover:opacity-80 transition-opacity" aria-label="Facebook">
-                            <img src="assets/37815d9106713d2842f03f8b3c11a0e3f2d765e2.png" alt="Facebook" style="width: 32px; height: 32px; object-fit: contain;">
+                            <img src="assets/Redes/facebook.png" alt="Facebook" style="width: 32px; height: 32px; object-fit: contain;">
                         </a>
                     </div>
                     <p class="font-poppins text-sm md:text-base" style="color: #9ca3af;">
@@ -293,30 +314,51 @@
                     <label for="grado">Grado</label>
                     <select id="grado" name="grado" required>
                         <option value="" disabled selected>Selecciona tu grado</option>
-                        <option value="General">General</option>
-                        <option value="Mayor general">Mayor general</option>
-                        <option value="Brigadier general">Brigadier general</option>
-                        <option value="Coronel">Coronel</option>
-                        <option value="Teniente coronel">Teniente coronel</option>
-                        <option value="Mayor">Mayor</option>
-                        <option value="Capitán">Capitán</option>
-                        <option value="Teniente">Teniente</option>
-                        <option value="Subteniente">Subteniente</option>
-                        <option value="Comisario">Comisario</option>
-                        <option value="Subcomisario">Subcomisario</option>
-                        <option value="Intendente jefe">Intendente jefe</option>
-                        <option value="Intendente">Intendente</option>
-                        <option value="Subintendente">Subintendente</option>
-                        <option value="Patrullero">Patrullero</option>
-                        <option value="Sargento mayor">Sargento mayor</option>
-                        <option value="Sargento primero">Sargento primero</option>
-                        <option value="Sargento viceprimero">Sargento viceprimero</option>
-                        <option value="Sargento segundo">Sargento segundo</option>
-                        <option value="Cabo primero">Cabo primero</option>
-                        <option value="Cabo segundo">Cabo segundo</option>
-                        <option value="Agentes del cuerpo profesional">Agentes del cuerpo profesional</option>
-                        <option value="Agentes del cuerpo profesional especial">Agentes del cuerpo profesional especial</option>
                         <option value="Familiar">Familiar</option>
+                        <option value="Patrullero">Patrullero</option>
+                        <option value="Subintendente">Subintendente</option>
+                        <option value="Intendente">Intendente</option>
+                        <option value="Intendente Jefe">Intendente Jefe</option>
+                        <option value="Subcomisario">Subcomisario</option>
+                        <option value="Comisario">Comisario</option>
+                        <option value="Subteniente">Subteniente</option>
+                        <option value="Teniente">Teniente</option>
+                        <option value="Capitán">Capitán</option>
+                        <option value="Mayor">Mayor</option>
+                        <option value="Teniente Coronel">Teniente Coronel</option>
+                        <option value="Coronel">Coronel</option>
+                        <option value="Brigadier General">Brigadier General</option>
+                        <option value="Mayor General">Mayor General</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="codigo">Código</label>
+                    <select id="codigo" name="codigo" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Supervisor de Convenio">Supervisor de Convenio</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="cualContainer" style="display: none;">
+                    <label for="cual">¿Cuál?</label>
+                    <input type="text" id="cual" name="cual" placeholder="Especifica tu código">
+                </div>
+
+                <div class="form-group">
+                    <label for="lugar">Lugar en el que recibió la información</label>
+                    <input type="text" id="lugar" name="lugar" required placeholder="Ej: Escuela X">
+                </div>
+
+                <div class="form-group">
+                    <label for="hora_contacto">Hora de Contacto</label>
+                    <select id="hora_contacto" name="hora_contacto" required>
+                        <option value="" disabled selected>Selecciona un horario</option>
+                        <option value="8am a 11am">8am a 11am</option>
+                        <option value="11am a 2pm">11am a 2pm</option>
+                        <option value="2pm a 5pm">2pm a 5pm</option>
                     </select>
                 </div>
 
@@ -358,6 +400,25 @@
                 </button>
             </form>
         </div>
+    </div>
+
+    <!-- Modal de Feature -->
+    <div id="featureModal" class="modal-overlay hidden">
+        <div class="feature-modal-content">
+            <button class="modal-close" aria-label="Cerrar" onclick="closeFeatureModal()">&times;</button>
+            <h3 id="featureModalTitle" class="feature-modal-title"></h3>
+            <div id="featureModalBody" class="feature-modal-body"></div>
+            <button class="btn-primary feature-modal-btn" onclick="openRegistrationModal()">
+                QUIERO MÁS <span class="font-extrabold ml-2">INFORMACIÓN</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Barra Fija Inferior - Visible solo cuando los otros botones no están en pantalla -->
+    <div id="fixedBottomBar" class="fixed-bottom-bar hidden">
+        <button class="btn-primary btn-fixed-bottom">
+            QUIERO MÁS <span class="font-extrabold ml-2">INFORMACIÓN</span>
+        </button>
     </div>
 
     <script src="script.js"></script>

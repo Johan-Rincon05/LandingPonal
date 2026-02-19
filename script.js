@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.querySelector('.modal-close');
     const form = document.getElementById('leadForm');
 
+    // Referencias para la barra fija inferior
+    const fixedBottomBar = document.getElementById('fixedBottomBar');
+    const fixedBottomBtn = document.querySelector('.btn-fixed-bottom');
+
+    // Referencia para el campo "Código" y "Cuál"
+    const codigoSelect = document.getElementById('codigo');
+    const cualContainer = document.getElementById('cualContainer');
+    const cualInput = document.getElementById('cual');
+
     // Función para abrir el modal
     function openModal() {
         modal.classList.remove('hidden');
@@ -17,15 +26,42 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('hidden');
         document.body.style.overflow = ''; // Restaura el scroll
         form.reset(); // Limpia el formulario
+        // Ocultar campo "Cuál" al cerrar
+        if (cualContainer) {
+            cualContainer.style.display = 'none';
+            if (cualInput) cualInput.removeAttribute('required');
+        }
     }
 
-    // Event listener para abrir el modal
+    // Event listener para abrir el modal (botones originales)
     openButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault(); // Previene cualquier comportamiento por defecto
             openModal();
         });
     });
+
+    // Event listener para el botón de la barra fija inferior
+    if (fixedBottomBtn) {
+        fixedBottomBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    }
+
+    // Mostrar/ocultar campo "Cuál" según selección de "Código"
+    if (codigoSelect && cualContainer) {
+        codigoSelect.addEventListener('change', function() {
+            if (this.value === 'Otro') {
+                cualContainer.style.display = 'flex';
+                cualInput.setAttribute('required', 'required');
+            } else {
+                cualContainer.style.display = 'none';
+                cualInput.removeAttribute('required');
+                cualInput.value = '';
+            }
+        });
+    }
 
     // Event listener para cerrar el modal (botón X)
     closeButton.addEventListener('click', closeModal);
@@ -63,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(scriptURL, {
             method: 'POST',
             body: formData,
-            mode: 'no-cors' // Importante para evitar errores de CORS con Google Scripts
+            mode: 'no-cors'
         })
         .then(() => {
             // Éxito
@@ -104,6 +140,59 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
         });
     });
+
+    // ===== LÓGICA DE BARRA FIJA INFERIOR =====
+    // Mostrar barra inferior solo cuando los otros botones no están visibles
+    
+    function checkButtonsVisibility() {
+        if (!fixedBottomBar || !openButtons.length) return;
+        
+        let anyButtonVisible = false;
+        
+        openButtons.forEach(btn => {
+            if (isElementInViewport(btn)) {
+                anyButtonVisible = true;
+            }
+        });
+        
+        // Si ningún botón original está visible, mostrar la barra fija
+        if (!anyButtonVisible) {
+            fixedBottomBar.classList.add('visible');
+            fixedBottomBar.classList.remove('hidden');
+        } else {
+            fixedBottomBar.classList.remove('visible');
+            // Esperar la transición antes de agregar hidden
+            setTimeout(() => {
+                if (!fixedBottomBar.classList.contains('visible')) {
+                    fixedBottomBar.classList.add('hidden');
+                }
+            }, 400);
+        }
+    }
+
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        
+        // El elemento está visible si:
+        // 1. Está dentro del viewport verticalmente (con un margen de 100px)
+        // 2. No está oculto
+        
+        const vertInView = (rect.top <= windowHeight - 100) && ((rect.top + rect.height) >= 100);
+        const isNotHidden = rect.height > 0 && rect.width > 0;
+        
+        return vertInView && isNotHidden;
+    }
+
+    // Verificar visibilidad al hacer scroll
+    window.addEventListener('scroll', checkButtonsVisibility);
+    
+    // Verificar visibilidad al redimensionar la ventana
+    window.addEventListener('resize', checkButtonsVisibility);
+    
+    // Verificar inicialmente después de que la página cargue
+    setTimeout(checkButtonsVisibility, 100);
 });
 
 // Animaciones y funcionalidades interactivas
@@ -333,3 +422,148 @@ function playHoverSound() {
 // Console info
 console.log('%c🚀 Landing Policía Nacional - Versión HTML/CSS/JS', 'color: #CEFE3B; font-size: 16px; font-weight: bold;');
 console.log('%cDesarrollado con ❤️', 'color: #0E223E; background: #CEFE3B; padding: 4px 8px; border-radius: 4px;');
+
+// Feature Modal Logic
+const featureData = {
+    homologacion: {
+        title: "Homologación hacia 11 Programas Activos",
+        content: `<p>Gracias al convenio entre la Corporación Universitaria Americana y la Policía Nacional, puedes homologar tu Técnico Profesional en Servicios de Policía hacia los siguientes programas:</p>
+        <ul>
+            <li>Administración de Empresas</li>
+            <li>Administración Pública</li>
+            <li>Administración Turística y Hotelera</li>
+            <li>Comunicaciones y Marketing</li>
+            <li>Contaduría Pública</li>
+            <li>Derecho</li>
+            <li>Ingeniería de Sistemas</li>
+            <li>Ingeniería Industrial</li>
+            <li>Licenciatura en Educación Infantil</li>
+            <li>Negocios Internacionales</li>
+            <li>Psicología</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Homologación inmediata</strong> convalidando tus conocimientos y experiencia policial.</p>`
+    },
+    reduccion: {
+        title: "Reducción de Tiempo y Costos entre 49% al 68%",
+        content: `<p>Optimiza tu inversión educativa con nuestro programa de homologación:</p>
+        <ul>
+            <li><strong>Ahorro en tiempo:</strong> Completa tu profesional en solo 4 cuatrimestres en lugar de 8 semestres tradicionales</li>
+            <li><strong>Ahorro económico:</strong> Benefíciate de descuentos exclusivos Negociados para personal policial</li>
+            <li><strong>Metodología eficiente:</strong> Presencial Asistida por Tecnologías (PAT) compatible con tu horario de servicio</li>
+        </ul>
+        <p style="margin-top: 1rem;">El proceso de homologación reconoce tus estudios anteriores, eliminando la necesidad de repetir materias ya cursadas.</p>`
+    },
+    carrera: {
+        title: "Culmina tu Especialización o Posgrado en 2 Cuatrimestres",
+        content: `<p>Gracias al convenio con la Policía Nacional, puedes acceder a las siguientes especializaciones:</p>
+        <ul>
+            <li>Especialización en Derecho Administrativo</li>
+            <li>Especialización en Derecho Penal</li>
+            <li>Especialización en Gerencia de Proyectos</li>
+            <li>Especialización en Gerencia del Talento Humano</li>
+            <li>Especialización en Gerencia Empresarial y Competitividad</li>
+            <li>Especialización en Gerencia Tributaria</li>
+        </ul>
+        <p style="margin-top: 1rem;">Homologa tu técnico policial y obtén tu especialización en solo 2 cuatrimestres.</p>`
+    },
+    valor: {
+        title: "Valor Cuatrimestral: $1.900.000",
+        content: `<p>Gracias al convenio exclusivo con la Policía Nacional, accede a un beneficio único:</p>
+        <ul>
+            <li><strong>Precio regular:</strong> $5.000.000 - $6.000.000 por cuatrimestre</li>
+            <li><strong>Precio conveniado:</strong> <span style="color: #CEFE3B; font-weight: bold;">$1.900.000 COP</span> por cuatrimestre</li>
+            <li><strong>Ahorro:</strong> ¡Más del 60% de descuento!</li>
+            <li><strong>Formas de pago:</strong> Diferentes opciones adaptadas a tu presupuesto</li>
+            <li><strong>Descuentos especiales:</strong> Para grupos o pagos anticipados</li>
+            <li><strong>Financiación:</strong> Posibilidad de planes de financiamiento</li>
+        </ul>
+        <p style="margin-top: 1rem; color: #CEFE3B; font-weight: 600;">Esta es una oportunidad única. ¡No dejes pasar este beneficio exclusivo para ti y tu familia!</p>`
+    }
+};
+
+function openFeatureModal(featureKey) {
+    const modal = document.getElementById('featureModal');
+    const titleEl = document.getElementById('featureModalTitle');
+    const bodyEl = document.getElementById('featureModalBody');
+    
+    const data = featureData[featureKey];
+    if (data) {
+        titleEl.textContent = data.title;
+        bodyEl.innerHTML = data.content;
+    }
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFeatureModal() {
+    const modal = document.getElementById('featureModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+function openRegistrationModal() {
+    closeFeatureModal();
+    const modal = document.getElementById('registrationModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+// Exponer funciones globalmente
+window.openRegistrationModal = openRegistrationModal;
+window.closeFeatureModal = closeFeatureModal;
+window.openFeatureModal = openFeatureModal;
+window.changeSlide = changeSlide;
+window.goToSlide = goToSlide;
+
+// Cerrar modal al hacer clic fuera
+document.addEventListener('DOMContentLoaded', () => {
+    const featureModal = document.getElementById('featureModal');
+    if (featureModal) {
+        featureModal.addEventListener('click', (e) => {
+            if (e.target === featureModal) {
+                closeFeatureModal();
+            }
+        });
+        
+        // Cerrar con ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !featureModal.classList.contains('hidden')) {
+                closeFeatureModal();
+            }
+        });
+    }
+});
+
+// Carrusel Hero
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const dots = document.querySelectorAll('.carousel-dot');
+const totalSlides = slides.length;
+
+function showSlide(n) {
+    currentSlide = n;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    
+    slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        dots[index].classList.remove('active');
+    });
+    
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+function goToSlide(n) {
+    showSlide(n);
+}
+
+// Auto-play del carrusel
+setInterval(() => {
+    changeSlide(1);
+}, 3000); // Cambia cada 3 segundos
