@@ -94,15 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         
         // URL del Google Apps Script
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw_WdQqsXyO01bEOsBF13TeWlMc8gPOs9rOaXnEkRKxT0wT-S8b5kKq1nYfNDGSlgo1/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxLlyYjKjcgSLgn5ebadE4dQCBejNhr1UzxnA9rTYFz7WrZVDmJNhDPn8g84YGHTATk/exec';
 
         fetch(scriptURL, {
             method: 'POST',
-            body: formData,
-            mode: 'no-cors'
+            body: formData
         })
-        .then(() => {
-            // Éxito
+        .then(response => response.text())
+        .then(text => {
             console.log('Formulario enviado con éxito');
             
             submitBtn.innerHTML = '¡ENVIADO!';
@@ -111,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             setTimeout(() => {
                 closeModal();
-                // Restaura el botón después de cerrar
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.style.backgroundColor = '';
@@ -119,12 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.disabled = false;
                 }, 500);
                 
-                alert('¡Gracias! Tus datos han sido recibidos. Nos pondremos en contacto pronto.');
+                showSuccessModal();
                 form.reset();
             }, 1500);
         })
         .catch(error => {
-            console.error('Error!', error.message);
+            console.error('Error:', error);
             
             submitBtn.innerHTML = 'Error al enviar';
             submitBtn.style.backgroundColor = '#f44336';
@@ -567,3 +565,25 @@ function goToSlide(n) {
 setInterval(() => {
     changeSlide(1);
 }, 3000); // Cambia cada 3 segundos
+
+// Success Modal Functions
+function showSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+// Exponer funciones globalmente
+window.openRegistrationModal = openRegistrationModal;
+window.closeFeatureModal = closeFeatureModal;
+window.openFeatureModal = openFeatureModal;
+window.changeSlide = changeSlide;
+window.goToSlide = goToSlide;
+window.showSuccessModal = showSuccessModal;
+window.closeSuccessModal = closeSuccessModal;
