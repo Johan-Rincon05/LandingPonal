@@ -215,9 +215,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Validación de teléfono (10 dígitos)
+    const telefonoInput = document.getElementById('telefono');
+    const telefonoError = document.getElementById('telefonoError');
+
+    function validateTelefono() {
+        const value = telefonoInput.value.replace(/\D/g, '');
+        
+        if (telefonoInput.value.length > 0 && value.length !== 10) {
+            telefonoError.textContent = 'El número debe tener exactamente 10 dígitos (ej: 3207692711 o 6019123456)';
+            telefonoInput.classList.add('input-error');
+            return false;
+        } else {
+            telefonoError.textContent = '';
+            telefonoInput.classList.remove('input-error');
+            return true;
+        }
+    }
+
+    telefonoInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+        validateTelefono();
+    });
+    telefonoInput.addEventListener('blur', validateTelefono);
+
     // Manejo del envío del formulario
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        if (!validateTelefono()) {
+            telefonoInput.focus();
+            return;
+        }
         
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;

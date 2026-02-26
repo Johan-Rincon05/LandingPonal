@@ -1277,6 +1277,20 @@ a {
     color: #CEFE3B !important;
 }
 
+.modal-form .form-group .error-message {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-family: var(--font-poppins);
+}
+
+.modal-form .form-group input.input-error,
+.modal-form .form-group select.input-error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2 !important;
+}
+
 .btn-modal-submit {
     width: 100%;
     margin-top: 1rem;
