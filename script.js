@@ -153,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para abrir el modal
     function openModal() {
+        if (localStorage.getItem('formularioEnviado') === 'true') {
+            alert('Ya has enviado el formulario. Un asesor te contactará pronto.');
+            return;
+        }
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
     }
@@ -166,6 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cualContainer.style.display = 'none';
             if (cualInput) cualInput.removeAttribute('required');
         }
+        if (telefonoError) telefonoError.textContent = '';
+        if (whatsappError) whatsappError.textContent = '';
+        if (telefonoInput) telefonoInput.classList.remove('input-error');
+        if (whatsappInput) whatsappInput.classList.remove('input-error');
     }
 
     // Event listener para abrir el modal (botones originales)
@@ -215,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Validación de teléfono (10 dígitos)
+    // Validación de teléfono (10 dígitos - celular 300-360 o fijo 600-690)
     const telefonoInput = document.getElementById('telefono');
     const telefonoError = document.getElementById('telefonoError');
 
@@ -223,14 +231,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const value = telefonoInput.value.replace(/\D/g, '');
         
         if (telefonoInput.value.length > 0 && value.length !== 10) {
-            telefonoError.textContent = 'El número debe tener exactamente 10 dígitos (ej: 3207692711 o 6019123456)';
+            telefonoError.textContent = 'El número debe tener exactamente 10 dígitos';
             telefonoInput.classList.add('input-error');
             return false;
-        } else {
-            telefonoError.textContent = '';
-            telefonoInput.classList.remove('input-error');
-            return true;
         }
+        
+        if (value.length === 10) {
+            const num = parseInt(value);
+            const isCelular = num >= 3000000000 && num <= 3600000000;
+            const isFijo = num >= 6000000000 && num <= 6900000000;
+            
+            if (!isCelular && !isFijo) {
+                telefonoError.textContent = 'Celular: 300xxxxxxx - 360xxxxxxx | Fijo: 600xxxxxxx - 690xxxxxxx';
+                telefonoInput.classList.add('input-error');
+                return false;
+            }
+        }
+        
+        telefonoError.textContent = '';
+        telefonoInput.classList.remove('input-error');
+        return true;
     }
 
     telefonoInput.addEventListener('input', function(e) {
@@ -239,12 +259,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     telefonoInput.addEventListener('blur', validateTelefono);
 
+    // Validación de WhatsApp (misma validación que teléfono)
+    const whatsappInput = document.getElementById('whatsapp');
+    const whatsappError = document.getElementById('whatsappError');
+
+    function validateWhatsapp() {
+        const value = whatsappInput.value.replace(/\D/g, '');
+        
+        if (whatsappInput.value.length > 0 && value.length !== 10) {
+            whatsappError.textContent = 'El número debe tener exactamente 10 dígitos';
+            whatsappInput.classList.add('input-error');
+            return false;
+        }
+        
+        if (value.length === 10) {
+            const num = parseInt(value);
+            const isCelular = num >= 3000000000 && num <= 3600000000;
+            const isFijo = num >= 6000000000 && num <= 6900000000;
+            
+            if (!isCelular && !isFijo) {
+                whatsappError.textContent = 'Celular: 300xxxxxxx - 360xxxxxxx | Fijo: 600xxxxxxx - 690xxxxxxx';
+                whatsappInput.classList.add('input-error');
+                return false;
+            }
+        }
+        
+        whatsappError.textContent = '';
+        whatsappInput.classList.remove('input-error');
+        return true;
+    }
+
+    whatsappInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+        validateWhatsapp();
+    });
+    whatsappInput.addEventListener('blur', validateWhatsapp);
+
     // Manejo del envío del formulario
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
         if (!validateTelefono()) {
             telefonoInput.focus();
+            return;
+        }
+        
+        if (!validateWhatsapp()) {
+            whatsappInput.focus();
             return;
         }
         
@@ -279,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.disabled = false;
                 }, 500);
                 
+                localStorage.setItem('formularioEnviado', 'true');
                 showSuccessModal();
                 form.reset();
             }, 1500);
